@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  User_Id                     String @id @default(uuid())
+  User_Name                   String
+  User_Email                  String
+  User_Password               String
+  User_Username               String
+  User_Avatar                 String
+  User_Overall_Rating         Float
+  User_Questions_Answers      Int
+  User_Points_Earned          Float
+  User_Total_Question_Add     Int
+  User_Register_Date          DateTime
+}

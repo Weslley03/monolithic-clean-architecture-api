@@ -1,0 +1,37 @@
+um banco de questões sobre programação, abastecidos pelo comunidade.
+
+--estrutura básica da plataforma
+usuários: podem responder e criar questões.
+questões: focadas em tópicos de programação com respostas objetivas (escolha múltipla, verdadeiro/falso, etc.).
+categorias: cada questão pertence a uma categoria específica (por exemplo, javascript, nodeJS, algoritmos).
+desempenho dos usuários: baseado no número de questões respondidas, percentual de acertos, e dificuldade das questões.
+
+--estrutura de pontuação das questões
+cada questão deve ter um peso baseado em sua dificuldade, inicialmente três níveis.
+fácil (peso: um) // médio (peso: dois)  // difícil (peso: três)
+quando um usuário responde a uma questão corretamente, ele ganha pontos equivalentes ao peso da questão.
+
+cálculo do overall rating do usuário, seguindo a lógica:
+
+--fórmula do rating:
+overall rating = total de pontos ganhos / total de questões respondidas × 100
+onde o total de pontos ganhos = soma dos pontos baseados nas respostas corretas, levando em consideração o peso da questão.
+total de questões respondidas = número de questões que o usuário respondeu.
+
+exemplo:
+o usuário respondeu 10 questões no total.
+ele acertou 4 questões fáceis (4 pontos), 3 questões médias (6 pontos) e 2 questões difíceis (6 pontos).
+pontos totais ganhos = 4 + 6 + 6 = 16.
+total de questões respondidas = 10.
+overall rating = (16 / 10) * 100 = 160.
+
+--nível de usuário baseado no overall rating: categorizar os usuários com base em faixas de overall rating, sistema de níveis:
+iniciante: 0 - 500 pontos
+intermediário: 501 - 1000 pontos
+avançado: 1001 - 1500 pontos
+especialista: 1501+ pontos
+
+O MAIS IMPORTANTE
+--um sistema de feedback para garantir que as questões tenham uma boa qualidade, cada questão DEVE ser avaliada por outros usuários. isso ajuda a construir um banco de dados 
+com questões relevantes e de qualidade. o feedback deve ser simples, 
+questões como "a categoria está correta?" "a dificuldade está correta?" "questão aprovada ou reprovada".

@@ -1,0 +1,21 @@
+{
+  "name": "spr-pro",
+  "version": "1.0.0",
+  "description": "Arquitetura: Clean Architecture Monolítica + Princípios de SOLID\r Backend: em TYPESCRIPT e NODEJS\r Framework Web utilizado: EXPRESS\r Banco de Dados: SQL - MYSQL utilizando PRISMA como ORM\r Testes em JESTJS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "^5.20.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.20.0"
+  }
+}
