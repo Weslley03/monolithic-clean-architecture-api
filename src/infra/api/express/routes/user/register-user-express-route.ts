@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { HttpMethod, Route } from "../routes";
-import { RegisterUserInputDto, RegisterUserOutputDto, RegisterUserUsecase } from "../../../../../usecases/user/register-user-usecase";
+import { 
+  RegisterUserInputDto, 
+  RegisterUserUsecase, 
+} from "../../../../../usecases/user/register-user-usecase";
 
 export type RegisterUserResponseDto = {
   User_Id?: string;
