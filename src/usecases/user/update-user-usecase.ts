@@ -1,3 +1,4 @@
+import { User } from "../../domain/user/entity/entity-user";
 import { UserGateway } from "../../domain/user/gateway/gateway-user";
 import { Usecase } from "../usecase";
 
@@ -10,7 +11,6 @@ export type UpdateUserInputDto = {
 
 export type UpdateUserOutputDto = {
   success: boolean;
-  message?: string;
 };
 
 export class UpdateUserUsecase implements Usecase<UpdateUserInputDto, UpdateUserOutputDto> {
@@ -21,13 +21,16 @@ export class UpdateUserUsecase implements Usecase<UpdateUserInputDto, UpdateUser
   };
 
   public async execute(input: UpdateUserInputDto): Promise<UpdateUserOutputDto> {
-    const user = await this.userGateway.findUserById(input.User_Id);
-    if(!user){
-      return {
-        success: false,
-        message: 'user not found'
-      };
-    };
+    const userDto = await this.userGateway.findUserById(input.User_Id);
+    if(!userDto) throw new Error('user not found');
+
+    const user = User.create(
+      userDto.User_Name,
+      userDto.User_Email,
+      userDto.User_Username,
+      userDto.User_Avatar,
+    );
+
     if(input.newAvatar) user.updateAvatar(input.newAvatar);
     if(input.newName) user.updateName(input.newName);
     if(input.newUsername) user.updateUsername(input.newUsername);  

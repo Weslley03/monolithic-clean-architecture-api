@@ -39,18 +39,24 @@ export class UserRepositoryPrisma implements UserGateway {
     })
   };
 
-  public async findUserById(userId: string): Promise<User | null> {
-    const user = await this.prismaClient.user.findUnique({
+  public async findUserById(userId: string): Promise<UserProps | null> {
+    const userData = await this.prismaClient.user.findUnique({
       where: { User_Id: userId },
     });
-    if(!user) return null
-    const result = User.create(
-      user.User_Name,
-      user.User_Email,
-      user.User_Password,
-      user.User_Username,
-    )
-    return result;
+    if(!userData) return null
+    return {
+      User_Id: userData.User_Id,
+      User_Name: userData.User_Name,
+      User_Email: userData.User_Email,
+      User_Password: userData.User_Password,
+      User_Username: userData.User_Username,
+      User_Avatar: userData.User_Avatar,
+      User_Overall_Rating: userData.User_Overall_Rating,
+      User_Questions_Answers: userData.User_Questions_Answers,
+      User_Points_Earned: userData.User_Points_Earned,
+      User_Total_Question_Add: userData.User_Total_Question_Add,
+      User_Register_Date: userData.User_Register_Date,
+    };
   };
 
   public async deleteUser(userId: string): Promise<void> {
