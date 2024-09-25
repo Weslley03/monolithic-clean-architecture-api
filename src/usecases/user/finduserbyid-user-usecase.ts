@@ -1,6 +1,6 @@
 import { Usecase } from "../usecase";
 import { UserGateway } from "../../domain/user/gateway/gateway-user";
-import { User, UserProps } from "../../domain/user/entity/entity-user";
+import { UserProps } from "../../domain/user/entity/entity-user";
 
 export type FindUserByIdInputDto = {
   User_Id: string;
