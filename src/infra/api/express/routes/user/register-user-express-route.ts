@@ -33,6 +33,8 @@ export class RegisterUserRoute implements Route {
     }catch(err){
       if(err instanceof ZodError) {
         res.status(400).json({error: err.errors });
+        console.error(`registerUserValidate error: ${err.message}`);
+        return;
       }
       next(err);
     };  

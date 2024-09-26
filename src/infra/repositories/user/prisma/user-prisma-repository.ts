@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from 'bcrypt';
 import { UserGateway } from "../../../../domain/user/gateway/gateway-user";
 import { User, UserProps } from "../../../../domain/user/entity/entity-user";
 
@@ -9,12 +10,19 @@ export class UserRepositoryPrisma implements UserGateway {
     return new UserRepositoryPrisma(prismaClient);
   }
 
+  private async hashPassword(password: string): Promise<string>{
+    const salt = 10;
+    const hashedPassword = await bcrypt.hash(password, salt);  
+    return hashedPassword;
+  };
+
   public async registerUser(user: User): Promise<void> {
+    const User_PasswordHasshed = await this.hashPassword(user.User_Password);
     const data = {
       User_Id: user.User_Id ,
       User_Name: user.User_Name,
       User_Email: user.User_Email,
-      User_Password: user.User_Password,
+      User_Password: User_PasswordHasshed,
       User_Username: user.User_Username,
       User_Avatar: user.User_Avatar,
       User_Overall_Rating: user.User_Overall_Rating,
