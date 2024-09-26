@@ -22,12 +22,14 @@ export class DeleteUserRoute implements Route {
   };
 
   public getHandler() {
-    return async (req: Request, res: Response) => {
-      const { User_Id } = req.body;
-      const input: DeleteUserInputDto = { User_Id }; 
-      const output: DeleteUserResponseDto = await this.deleteUserService.execute(input);
-      res.status(202).json(output).send();
-    };
+    return [ 
+      async (req: Request, res: Response) => {
+        const { User_Id } = req.body;
+        const input: DeleteUserInputDto = { User_Id }; 
+        const output: DeleteUserResponseDto = await this.deleteUserService.execute(input);
+        res.status(202).json(output).send();
+      }
+    ];
   };
 
   public getPath(): string {

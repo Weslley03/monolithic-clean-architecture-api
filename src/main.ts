@@ -8,7 +8,7 @@ import { RegisterUserUsecase } from "./usecases/user/register-user-usecase";
 import { DeleteUserUsecase } from "./usecases/user/delete-user-usecase";
 import { UpdateUserUsecase } from "./usecases/user/update-user-usecase";
 import { ApiExpress } from "./infra/api/express/api.express";
-import { prisma } from "./src/package/prisma/prisma";
+import { prisma } from "./package/prisma/prisma";
 
 
 function main() {

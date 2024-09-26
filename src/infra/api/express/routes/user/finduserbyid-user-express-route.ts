@@ -29,13 +29,15 @@ export class FindUserByIdUserRoute implements Route {
   };
 
   getHandler() {
-    return async (req: Request, res: Response) => {
-      const { User_Id } = req.body;
-      const input: FindUserByIdInputDto = { User_Id };
-      const output: FindUserByIdResponseDto = await this.findUserByIdService.execute(input);
-      const responseBody = this.presentOutput(output);
-      res.status(200).json(responseBody).send();
-    };
+    return [ 
+      async (req: Request, res: Response) => {
+        const { User_Id } = req.body;
+        const input: FindUserByIdInputDto = { User_Id };
+        const output: FindUserByIdResponseDto = await this.findUserByIdService.execute(input);
+        const responseBody = this.presentOutput(output);
+        res.status(200).json(responseBody).send();
+      }
+    ];
   };
 
   private presentOutput(input: FindUserByIdResponseDto): FindUserByIdResponseDto {

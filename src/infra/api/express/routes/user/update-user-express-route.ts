@@ -26,25 +26,27 @@ export class UpdateUserRoute implements Route {
   };
 
   public getHandler() {
-    return async (req: Request, res: Response) => {
-      const {
-        User_Id,
-        newName, 
-        newUsername, 
-        newAvatar,
-      } = req.body;
+    return [ 
+      async (req: Request, res: Response) => {
+        const {
+          User_Id,
+          newName, 
+          newUsername, 
+          newAvatar,
+        } = req.body;
 
-      const input: UpdateUserInputDto = {
-        User_Id,
-        newName, 
-        newUsername, 
-        newAvatar,
-      };
+        const input: UpdateUserInputDto = {
+          User_Id,
+          newName, 
+          newUsername, 
+          newAvatar,
+        };
 
-      const output: UpdateUserResponseDto = await this.updateUserService.execute(input); 
-      res.status(200).json(output).send();
-    };
-  }
+        const output: UpdateUserResponseDto = await this.updateUserService.execute(input); 
+        res.status(200).json(output).send();
+      }
+    ];
+  };
 
   public getPath(): string {
     return this.path;

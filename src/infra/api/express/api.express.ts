@@ -19,9 +19,9 @@ export class ApiExpress implements Api {
     routes.forEach((route) => {
       const path = route.getPath();
       const method = route.getMethod();
-      const handler = route.getHandler();
+      const handlers = route.getHandler();
 
-      this.app[method](path, handler);
+      this.app[method](path, handlers);
     });
   };
 
