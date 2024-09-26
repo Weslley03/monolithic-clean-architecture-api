@@ -37,7 +37,7 @@ export class RegisterUserUsecase implements Usecase<RegisterUserInputDto, Regist
     return output;
   };
 
-  public presentOutput(user: User): RegisterUserOutputDto {
+  private presentOutput(user: User): RegisterUserOutputDto {
     const present: RegisterUserOutputDto = {
       User_Id: user.User_Id
     }

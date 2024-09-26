@@ -1,5 +1,5 @@
 export type UserProps = {
-  User_Id?: string;
+  User_Id: string;
   User_Name: string;
   User_Email: string;
   User_Password: string;
@@ -17,6 +17,7 @@ export class User {
 
   public static create(User_Name: string, User_Email: string, User_Password: string, User_Username: string) {
     return new User({
+      User_Id: crypto.randomUUID().toString(),
       User_Name,
       User_Email,
       User_Password,
