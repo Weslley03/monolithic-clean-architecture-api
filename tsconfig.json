@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true
-  }
+    "target": "ES6",                     // You can leave this as is
+    "module": "CommonJS",                // Required for Node.js (unless using ESM)
+    "outDir": "./dist",                  // Output compiled JavaScript files here
+    "rootDir": "./src",                  // Specifies the root directory of input files
+    "strict": true,                      // Enable strict type checking options
+    "esModuleInterop": true,             // Allows default imports from CommonJS modules
+    "resolveJsonModule": true,           // Enable importing .json files
+    "moduleResolution": "node",          // Ensure module resolution works with Node.js
+    "skipLibCheck": true,                // Skip checking of declaration files (optional)
+    "forceConsistentCasingInFileNames": true  // Enforces case-sensitive file imports
+  },
+  "include": ["src"],                     // Include all TypeScript files in the src folder
+  "exclude": ["node_modules", "dist"]     // Exclude node_modules and dist from being compiled
 }

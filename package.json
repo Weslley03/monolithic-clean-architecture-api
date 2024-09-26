@@ -4,7 +4,9 @@
   "description": "Arquitetura: Clean Architecture Monolítica + Princípios de SOLID\r Backend: em TYPESCRIPT e NODEJS\r Framework Web utilizado: EXPRESS\r Banco de Dados: SQL - MYSQL utilizando PRISMA como ORM\r Testes em JESTJS",
   "main": "index.js",
   "scripts": {
-    "dev": "node src/main.ts"
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "npm run build && npm start"
   },
   "keywords": [],
   "author": "",
