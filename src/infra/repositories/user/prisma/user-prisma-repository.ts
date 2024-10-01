@@ -17,7 +17,11 @@ export class UserRepositoryPrisma implements UserGateway {
   };
 
   public async registerUser(user: User): Promise<void> {
+    const existingUser = await this.prismaClient.user.findUnique({ where: { User_Email: user.User_Email } }); 
+    if(existingUser) throw new Error('email already in use');
+
     const User_PasswordHasshed = await this.hashPassword(user.User_Password);
+    
     const data = {
       User_Id: user.User_Id ,
       User_Name: user.User_Name,
@@ -31,6 +35,7 @@ export class UserRepositoryPrisma implements UserGateway {
       User_Total_Question_Add: user.User_Total_Question_Add,
       User_Register_Date: user.User_Register_Date,
     };
+    
     await this.prismaClient.user.create({data});
   };
 

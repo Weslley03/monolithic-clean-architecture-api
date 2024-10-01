@@ -26,15 +26,26 @@ export class RegisterUserUsecase implements Usecase<RegisterUserInputDto, Regist
     User_Password,
     User_Username,
   }: RegisterUserInputDto): Promise<RegisterUserOutputDto> {
-    const aUser = User.create(
-      User_Name,
-      User_Email,
-      User_Password,
-      User_Username,
-    );
-    await this.userGateway.registerUser(aUser);
-    const output = this.presentOutput(aUser);
-    return output;
+    try{
+      const aUser = User.create(
+        User_Name,
+        User_Email,
+        User_Password,
+        User_Username,
+      );
+  
+      await this.userGateway.registerUser(aUser);
+      const output = this.presentOutput(aUser);
+      return output;
+    }catch(err){
+      if (err instanceof Error){
+        if(err.message === 'email already in use') {
+          throw new Error('email already in use');
+        }
+        throw err;
+      };
+    }; 
+    throw new Error('an unknown error occurred');
   };
 
   private presentOutput(user: User): RegisterUserOutputDto {

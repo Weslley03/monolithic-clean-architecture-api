@@ -43,24 +43,28 @@ export class RegisterUserRoute implements Route {
   public getHandler() {
     return [ 
       this.registerUserValidate,
-      async (req: Request, res: Response) => {
+      async (req: Request, res: Response, next: NextFunction) => {
+        try{
           const {     
             User_Name,
             User_Email,
             User_Password,
             User_Username,
-        } = req.body;
+          } = req.body;
 
-        const input: RegisterUserInputDto = {     
-          User_Name,
-          User_Email,
-          User_Password,
-          User_Username,
+          const input: RegisterUserInputDto = {     
+            User_Name,
+            User_Email,
+            User_Password,
+            User_Username,
+          };
+
+          const output: RegisterUserResponseDto = await this.registerUserService.execute(input);
+          const responseBody = this.presentOutput(output);
+          res.status(201).json(responseBody).send();
+        }catch(err){
+          next(err);
         };
-
-        const output: RegisterUserResponseDto = await this.registerUserService.execute(input);
-        const responseBody = this.presentOutput(output);
-        res.status(201).json(responseBody).send();
       }
     ]; 
   };

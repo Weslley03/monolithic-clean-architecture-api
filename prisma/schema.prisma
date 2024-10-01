@@ -8,9 +8,9 @@ datasource db {
 }
 
 model User {
-  User_Id                     String @id
+  User_Id                     String @id @unique
   User_Name                   String
-  User_Email                  String
+  User_Email                  String @unique
   User_Password               String
   User_Username               String
   User_Avatar                 String

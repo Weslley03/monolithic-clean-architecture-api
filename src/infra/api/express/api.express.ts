@@ -1,5 +1,5 @@
 import { Api } from "../api";
-import express, { Express } from "express";
+import express, { Express, Request, Response, NextFunction } from "express";
 import { Route } from "./routes/routes";
 
 export class ApiExpress implements Api {
@@ -30,7 +30,21 @@ export class ApiExpress implements Api {
       console.log(`server running on port ${port}...`);
       this.listenRoutes();
     });
+
+    this.app.use(this.errorHandler);
   };  
+
+  private errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
+    if(err instanceof Error){
+      res.status(400).json({
+        error: err.message,
+      });
+    }else {
+      res.status(500).json({
+        error: 'onternal server error',
+      });
+    };
+  };
 
   public listenRoutes() {
     const routes = this.app._router.stack
