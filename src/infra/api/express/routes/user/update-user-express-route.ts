@@ -19,7 +19,7 @@ export class UpdateUserRoute implements Route {
 
   public static create(updateUserService: UpdateUserUsecase) {
     return new UpdateUserRoute(
-      '/user-update',
+      '/user-update/:User_Id',
       HttpMethod.PATCH,
       updateUserService
     );
@@ -29,19 +29,20 @@ export class UpdateUserRoute implements Route {
     return [ 
       async (req: Request, res: Response) => {
         const {
-          User_Id,
-          newName, 
-          newUsername, 
-          newAvatar,
+          User_Name, 
+          User_Username, 
+          User_Avatar,
         } = req.body;
 
-        const input: UpdateUserInputDto = {
-          User_Id,
-          newName, 
-          newUsername, 
-          newAvatar,
-        };
+        const { User_Id } = req.params;
 
+
+        const input: UpdateUserInputDto = {
+          User_Id: User_Id,
+          newName: User_Name, 
+          newUsername: User_Username, 
+          newAvatar: User_Avatar,
+        };
         const output: UpdateUserResponseDto = await this.updateUserService.execute(input); 
         res.status(200).json(output).send();
       }
