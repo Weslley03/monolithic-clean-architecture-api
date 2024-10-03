@@ -22,7 +22,7 @@ export class FindUserByIdUserRoute implements Route {
 
   public static create(findUserByIdService: FindUserByIdUsecase) {
     return new FindUserByIdUserRoute(
-      '/user-findbyid',
+      '/user-findbyid/:User_Id',
       HttpMethod.GET,
       findUserByIdService
     );
@@ -31,7 +31,7 @@ export class FindUserByIdUserRoute implements Route {
   getHandler() {
     return [ 
       async (req: Request, res: Response) => {
-        const { User_Id } = req.body;
+        const { User_Id } = req.params;
         const input: FindUserByIdInputDto = { User_Id };
         const output: FindUserByIdResponseDto = await this.findUserByIdService.execute(input);
         const responseBody = this.presentOutput(output);
