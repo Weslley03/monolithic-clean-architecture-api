@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { HttpMethod, Route } from "../routes";
 import { 
   UpdateUserInputDto, 
@@ -27,24 +27,28 @@ export class UpdateUserRoute implements Route {
 
   public getHandler() {
     return [ 
-      async (req: Request, res: Response) => {
-        const {
-          User_Name, 
-          User_Username, 
-          User_Avatar,
-        } = req.body;
-
-        const { User_Id } = req.params;
-
-
-        const input: UpdateUserInputDto = {
-          User_Id: User_Id,
-          newName: User_Name, 
-          newUsername: User_Username, 
-          newAvatar: User_Avatar,
+      async (req: Request, res: Response, next: NextFunction) => {
+        try {
+          const {
+            User_Name, 
+            User_Username, 
+            User_Avatar,
+          } = req.body;
+  
+          const { User_Id } = req.params;
+  
+  
+          const input: UpdateUserInputDto = {
+            User_Id: User_Id,
+            newName: User_Name, 
+            newUsername: User_Username, 
+            newAvatar: User_Avatar,
+          };
+          const output: UpdateUserResponseDto = await this.updateUserService.execute(input); 
+          res.status(200).json(output).send();
+        }catch(err){
+          next(err);
         };
-        const output: UpdateUserResponseDto = await this.updateUserService.execute(input); 
-        res.status(200).json(output).send();
       }
     ];
   };
