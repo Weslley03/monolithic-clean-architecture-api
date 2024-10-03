@@ -17,8 +17,18 @@ export class DeleteUserUsecase implements Usecase<DeleteUserInputDto, DeleteUser
   };
 
   public async execute(userId: DeleteUserInputDto): Promise<DeleteUserOutputDto> {
-    const { User_Id } = userId;
-    await this.userGateway.deleteUser(User_Id);
-    return { success: true }; 
+    try{
+      const { User_Id } = userId;
+      await this.userGateway.deleteUser(User_Id);
+      return { success: true }; 
+    }catch(err){
+      if(err instanceof Error) {
+        if(err.message === 'user not found') {
+          throw new Error('user not found');
+        };
+        throw err;
+      };
+      throw new Error('an unknown error occurred');
+    };
   };
 };

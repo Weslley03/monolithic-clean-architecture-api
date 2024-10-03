@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { DeleteUserInputDto, DeleteUserUsecase } from "../../../../../usecases/user/delete-user-usecase";
 import { HttpMethod, Route } from "../routes";
 
@@ -23,11 +23,15 @@ export class DeleteUserRoute implements Route {
 
   public getHandler() {
     return [ 
-      async (req: Request, res: Response) => {
-        const { User_Id } = req.params;
-        const input: DeleteUserInputDto = { User_Id }; 
-        const output: DeleteUserResponseDto = await this.deleteUserService.execute(input);
-        res.status(202).json(output).send();
+      async (req: Request, res: Response, next: NextFunction) => {
+        try{
+          const { User_Id } = req.params;
+          const input: DeleteUserInputDto = { User_Id }; 
+          const output: DeleteUserResponseDto = await this.deleteUserService.execute(input);
+          res.status(202).json(output).send();
+        }catch(err){
+          next(err);
+        }; 
       }
     ];
   };

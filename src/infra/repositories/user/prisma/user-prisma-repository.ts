@@ -73,8 +73,12 @@ export class UserRepositoryPrisma implements UserGateway {
   };
 
   public async deleteUser(userId: string): Promise<void> {
-    await this.prismaClient.user.delete({
-      where: { User_Id: userId }
-    }); 
+    try{
+      await this.prismaClient.user.delete({
+        where: { User_Id: userId }
+      }); 
+    }catch(err){
+      throw new Error('user not found');
+    };
   };
 };
