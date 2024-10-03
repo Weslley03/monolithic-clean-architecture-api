@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction} from "express";
 import { HttpMethod, Route } from "../routes";
 import { 
   FindUserByIdInputDto, 
@@ -30,12 +30,16 @@ export class FindUserByIdUserRoute implements Route {
 
   getHandler() {
     return [ 
-      async (req: Request, res: Response) => {
-        const { User_Id } = req.params;
-        const input: FindUserByIdInputDto = { User_Id };
-        const output: FindUserByIdResponseDto = await this.findUserByIdService.execute(input);
-        const responseBody = this.presentOutput(output);
-        res.status(200).json(responseBody).send();
+      async (req: Request, res: Response, next: NextFunction ) => {
+        try {
+          const { User_Id } = req.params;
+          const input: FindUserByIdInputDto = { User_Id };
+          const output: FindUserByIdResponseDto = await this.findUserByIdService.execute(input);
+          const responseBody = this.presentOutput(output);
+          res.status(200).json(responseBody).send();
+        }catch(err){
+          next(err);
+        };
       }
     ];
   };
