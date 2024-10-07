@@ -9,7 +9,7 @@ export type UserProps = {
   User_Questions_Answers: number;
   User_Points_Earned: number;
   User_Total_Question_Add: number;
-  User_Register_Date: Date
+  User_Register_Date: Date;
 };
 
 export class User {

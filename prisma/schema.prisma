@@ -20,3 +20,23 @@ model User {
   User_Total_Question_Add     Int
   User_Register_Date          DateTime
 }
+
+model Question {
+  Question_Id                     String @id @unique
+  Question_Category               String
+  Question_Difficulty             Int
+  Question_Is_Approved            Boolean
+  Question_Approved_Count         Int
+  Question_Statement              String
+  Question_Figure                 String
+  Question_Text_Body              String
+  Question_Resolution             String
+  Question_Gabarito               String
+  Question_Id_User_Internal       String
+  Question_Name_User_Internal     String
+  Question_Register_Date          DateTime
+  Question_Publication_Date       DateTime
+  Question_Reviewed_Date          DateTime
+  Question_Update_Date            DateTime
+  Question_Total_Use              Int
+}
