@@ -19,6 +19,8 @@ model User {
   User_Points_Earned          Float
   User_Total_Question_Add     Int
   User_Register_Date          DateTime
+
+  questions                   Question[] @relation("UserQuestions")
 }
 
 model Question {
@@ -39,4 +41,17 @@ model Question {
   Question_Reviewed_Date          DateTime?
   Question_Update_Date            DateTime?
   Question_Total_Use              Int
+
+  user                            User @relation("UserQuestions", fields: [Question_Id_User_Internal], references: [User_Id])
+
+  choices                        Choices[] @relation("QuestionChoices")
+}
+
+model Choices {
+  Question_Choice_Id                String @id @unique
+  Question_Id                       String
+  Choice_Text                       String
+  Question_Choice_Is_Correct        Boolean 
+
+  question                          Question @relation("QuestionChoices", fields: [Question_Id], references: [Question_Id])
 }
