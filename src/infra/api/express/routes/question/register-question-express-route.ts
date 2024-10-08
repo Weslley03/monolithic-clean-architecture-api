@@ -32,6 +32,7 @@ export class RegisterQuestionRoute implements Route {
             Question_Text_Body, 
             Question_Resolution, 
             Question_Gabarito, 
+            choices,
           } = req.body;
 
           const {
@@ -46,6 +47,7 @@ export class RegisterQuestionRoute implements Route {
             Question_Resolution, 
             Question_Gabarito, 
             Question_Id_User_Internal, 
+            choices,
           };
 
           const output: RegisterQuestionResponseDto =  await this.registerQustionService.execute(input);

@@ -1,6 +1,7 @@
-import { QuestionGateway } from "../../domain/user/gateway/gateway-question";
-import { Question } from "../../domain/user/question/entity-question";
+import { QuestionGateway } from "../../domain/question/gateway/gateway-question";
+import { Question } from "../../domain/question/entity/entity-question";
 import { Usecase } from "../usecase";
+import { Choice, ChoiceProps } from "../../domain/choices/entity/entity-choice";
 
 export type RegisterQuestionInputDto = {
   Question_Difficulty: number, 
@@ -10,7 +11,8 @@ export type RegisterQuestionInputDto = {
   Question_Resolution: string, 
   Question_Gabarito: string, 
   Question_Id_User_Internal: string, 
-  Question_Name_User_Internal?: string
+  Question_Name_User_Internal?: string,
+  choices: ChoiceProps[],
 };
 
 export type RegisterQuestionOutputDto = {
@@ -33,13 +35,14 @@ export class RegisterQuestionUsecase implements Usecase<RegisterQuestionInputDto
       Question_Resolution, 
       Question_Gabarito, 
       Question_Id_User_Internal, 
+      choices,
     } = input;
 
     const user = await this.questionGateway.findUser(Question_Id_User_Internal);
     if(!user) throw new Error('it was not possible to find the creator of this question');
     const Question_Name_User_Internal = user.User_Name
 
-    const aQuestion =  Question.create(
+    const aQuestion = Question.create(
       Question_Difficulty,
       Question_Statement, 
       Question_Figure, 
@@ -51,6 +54,17 @@ export class RegisterQuestionUsecase implements Usecase<RegisterQuestionInputDto
     );
 
     await this.questionGateway.registerQuestion(aQuestion);
+
+    const questionChoices = choices.map(choice =>
+      Choice.create(
+        aQuestion.Question_Id,
+        choice.Choice_Text,
+        choice.Question_Choice_Is_Correct
+      ).getProps()
+    );
+
+    await this.questionGateway.registerChoice(questionChoices);
+
     const output: RegisterQuestionOutputDto = this.presentOutput(aQuestion);
     return output;
   };

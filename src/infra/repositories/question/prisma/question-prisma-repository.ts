@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { QuestionGateway } from "../../../../domain/user/gateway/gateway-question";
-import { Question, QuestionProps } from "../../../../domain/user/question/entity-question";
+import { QuestionGateway } from "../../../../domain/question/gateway/gateway-question";
+import { Question } from "../../../../domain/question/entity/entity-question";
 import { UserProps } from "../../../../domain/user/entity/entity-user";
+import { ChoiceProps } from "../../../../domain/choices/entity/entity-choice";
 
 export class QuestionRepositoryPrisma implements QuestionGateway {
   private constructor(private prismaClient: PrismaClient) {};
@@ -32,6 +33,12 @@ export class QuestionRepositoryPrisma implements QuestionGateway {
     };
 
     await this.prismaClient.question.create({data});
+  };
+
+  public async registerChoice(choices: ChoiceProps[]): Promise<void> {
+    await this.prismaClient.choices.createMany({
+      data: choices
+    });
   };
 
   public async findUser(Question_Id_User_Internal: string): Promise<UserProps | null>{
