@@ -12,6 +12,9 @@ import { prisma } from "./package/prisma/prisma";
 import { LoginUserRepositoryPrisma } from "./infra/repositories/auth/prisma/login-prisma-repository";
 import { LoginUserUsecase } from "./usecases/auth/login-user-usecase";
 import { LoginUserRoute } from "./infra/api/express/routes/login/login-user-express-route";
+import { QuestionRepositoryPrisma } from "./infra/repositories/question/prisma/question-prisma-repository";
+import { RegisterQuestionUsecase } from "./usecases/question/register-question-usecase";
+import { RegisterQuestionRoute } from "./infra/api/express/routes/question/register-question-express-route";
 
 
 function main() {
@@ -33,7 +36,20 @@ function main() {
 
   const loginUserRoute = LoginUserRoute.create(loginUserUsecase);
 
-  const api = ApiExpress.create([registerUserRoute, updateUserRoute, findByIdUserRoute, deleteUserRoute, loginUserRoute]);
+  const cRepository = QuestionRepositoryPrisma.create(prisma);
+
+  const registerQuestionUsecase = RegisterQuestionUsecase.create(cRepository);
+
+  const registerQuestionrRoute = RegisterQuestionRoute.create(registerQuestionUsecase);
+
+  const api = ApiExpress.create([
+    registerUserRoute, 
+    updateUserRoute, 
+    findByIdUserRoute, 
+    deleteUserRoute, 
+    loginUserRoute, 
+    registerQuestionrRoute
+  ]);
 
   const port = 8000;
   api.start(port);

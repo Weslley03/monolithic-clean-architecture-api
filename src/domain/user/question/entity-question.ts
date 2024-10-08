@@ -3,10 +3,10 @@ export type QuestionProps = {
   Question_Category: string;
   Question_Difficulty: number;
   Question_Is_Approved: boolean;
-  Question_Approved_Count: Number;
-  Question_Statement: string;
+  Question_Approved_Count: number;
+  Question_Statement: string; //assuntos
   Question_Figure: string;
-  Question_Text_Body: string;
+  Question_Text_Body: string; //enunciado
   Question_Resolution: string;
   Question_Gabarito: string;
   Question_Id_User_Internal: string;
@@ -102,6 +102,10 @@ export class Question {
 
   public get Question_Id_User_Internal() {
     return this.questionProps.Question_Id_User_Internal;
+  };
+
+  public get Question_Name_User_Internal() {
+    return this.questionProps.Question_Name_User_Internal;
   };
 
   public get Question_Register_Date() {

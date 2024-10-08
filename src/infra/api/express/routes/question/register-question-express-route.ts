@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { RegisterQuestionUsecase } from "../../../../../usecases/question/register-question-usecase";
+import { RegisterQuestionInputDto, RegisterQuestionUsecase } from "../../../../../usecases/question/register-question-usecase";
 import { HttpMethod, Route } from "../routes";
 
 export type RegisterQuestionResponseDto = {
@@ -15,7 +15,7 @@ export class RegisterQuestionRoute implements Route {
 
   public static create(registerQustionService: RegisterQuestionUsecase){
     return new RegisterQuestionRoute(
-      '/question-register',
+      '/question-register/:Question_Id_User_Internal',
       HttpMethod.POST,
       registerQustionService
     );
@@ -27,24 +27,25 @@ export class RegisterQuestionRoute implements Route {
         try{
           const {
             Question_Difficulty, 
-            Question_Statements, 
+            Question_Statement, 
             Question_Figure, 
             Question_Text_Body, 
             Question_Resolution, 
             Question_Gabarito, 
-            Question_Id_User_Internal, 
-            Question_Name_User_Internal,
           } = req.body;
+
+          const {
+            Question_Id_User_Internal, 
+          } = req.params;
 
           const input: RegisterQuestionInputDto = {
             Question_Difficulty, 
-            Question_Statements, 
+            Question_Statement, 
             Question_Figure, 
             Question_Text_Body, 
             Question_Resolution, 
             Question_Gabarito, 
             Question_Id_User_Internal, 
-            Question_Name_User_Internal,
           };
 
           const output: RegisterQuestionResponseDto =  await this.registerQustionService.execute(input);

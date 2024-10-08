@@ -35,8 +35,8 @@ model Question {
   Question_Id_User_Internal       String
   Question_Name_User_Internal     String
   Question_Register_Date          DateTime
-  Question_Publication_Date       DateTime
-  Question_Reviewed_Date          DateTime
-  Question_Update_Date            DateTime
+  Question_Publication_Date       DateTime?
+  Question_Reviewed_Date          DateTime?
+  Question_Update_Date            DateTime?
   Question_Total_Use              Int
 }
