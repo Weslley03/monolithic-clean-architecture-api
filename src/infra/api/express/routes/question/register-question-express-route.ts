@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { RegisterQuestionInputDto, RegisterQuestionUsecase } from "../../../../../usecases/question/register-question-usecase";
 import { HttpMethod, Route } from "../routes";
+import { authMiddleware } from "../../../../../middlewares/auth/auth.middlewares";
 
 export type RegisterQuestionResponseDto = {
   Question_Id?: string;
@@ -21,8 +22,13 @@ export class RegisterQuestionRoute implements Route {
     );
   };
 
+  private async middlwareValidate(req: Request, res: Response, next: NextFunction) {
+    await authMiddleware(req, res, next);
+  };
+
   public getHandler() {
     return [
+      this.middlwareValidate,
       async (req: Request, res: Response, next: NextFunction) => {
         try{
           const {
@@ -35,9 +41,9 @@ export class RegisterQuestionRoute implements Route {
             choices,
           } = req.body;
 
-          const {
-            Question_Id_User_Internal, 
-          } = req.params;
+          const Question_Id_User_Internal = req.userId;
+
+          if(!Question_Id_User_Internal) throw new Error('where are you req.userId?');
 
           const input: RegisterQuestionInputDto = {
             Question_Difficulty, 
