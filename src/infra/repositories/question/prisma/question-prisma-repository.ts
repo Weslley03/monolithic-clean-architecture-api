@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { QuestionGateway } from "../../../../domain/question/gateway/gateway-question";
-import { Question } from "../../../../domain/question/entity/entity-question";
+import { Question, QuestionProps } from "../../../../domain/question/entity/entity-question";
 import { UserProps } from "../../../../domain/user/entity/entity-user";
 import { ChoiceProps } from "../../../../domain/choices/entity/entity-choice";
 
@@ -61,5 +61,32 @@ export class QuestionRepositoryPrisma implements QuestionGateway {
       User_Total_Question_Add: userData.User_Total_Question_Add,
       User_Register_Date: userData.User_Register_Date,
     };
+  };
+
+  public async findAllQuestion(): Promise<QuestionProps[]> {
+    const question = await this.prismaClient.question.findMany();
+    const questions = question.map((data) => {
+      const questions: QuestionProps = {
+        Question_Id: data.Question_Id,
+        Question_Category: data.Question_Category,
+        Question_Difficulty: data.Question_Difficulty,
+        Question_Is_Approved: data.Question_Is_Approved,
+        Question_Approved_Count: data.Question_Approved_Count,
+        Question_Statement: data.Question_Statement, //assuntos
+        Question_Figure: data.Question_Figure,
+        Question_Text_Body: data.Question_Text_Body,//enunciado
+        Question_Resolution: data.Question_Resolution,
+        Question_Gabarito: data.Question_Gabarito,
+        Question_Id_User_Internal: data.Question_Id_User_Internal,
+        Question_Name_User_Internal: data.Question_Name_User_Internal,
+        Question_Register_Date: data.Question_Register_Date,
+        Question_Publication_Date: data.Question_Publication_Date,
+        Question_Reviewed_Date: data.Question_Reviewed_Date,
+        Question_Update_Date: data.Question_Update_Date,
+        Question_Total_Use: data.Question_Total_Use,
+      }
+      return questions;
+    });
+    return questions;
   };
 };

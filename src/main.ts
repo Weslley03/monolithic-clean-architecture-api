@@ -15,6 +15,8 @@ import { LoginUserRoute } from "./infra/api/express/routes/login/login-user-expr
 import { QuestionRepositoryPrisma } from "./infra/repositories/question/prisma/question-prisma-repository";
 import { RegisterQuestionUsecase } from "./usecases/question/register-question-usecase";
 import { RegisterQuestionRoute } from "./infra/api/express/routes/question/register-question-express-route";
+import { FindAllQuestionUsecase } from "./usecases/question/find-all-question-usecase";
+import { FindAllQuestionRoute } from "./infra/api/express/routes/question/find-all-question-express-route";
 
 
 function main() {
@@ -30,17 +32,19 @@ function main() {
   const findByIdUserRoute = FindUserByIdUserRoute.create(findByIdUserUsecase);
   const deleteUserRoute = DeleteUserRoute.create(deleteUserUsecase);
 
-  const bRepository = LoginUserRepositoryPrisma.create(prisma);
+  const bRepository = LoginUserRepositoryPrisma.create(prisma); /////////////
 
   const loginUserUsecase = LoginUserUsecase.create(bRepository);
 
   const loginUserRoute = LoginUserRoute.create(loginUserUsecase);
 
-  const cRepository = QuestionRepositoryPrisma.create(prisma);
+  const cRepository = QuestionRepositoryPrisma.create(prisma); /////////////
 
   const registerQuestionUsecase = RegisterQuestionUsecase.create(cRepository);
+  const findallQuestionUsecase = FindAllQuestionUsecase.create(cRepository);
 
   const registerQuestionrRoute = RegisterQuestionRoute.create(registerQuestionUsecase);
+  const findallQuestionRoute = FindAllQuestionRoute.create(findallQuestionUsecase);
 
   const api = ApiExpress.create([
     registerUserRoute, 
@@ -48,7 +52,8 @@ function main() {
     findByIdUserRoute, 
     deleteUserRoute, 
     loginUserRoute, 
-    registerQuestionrRoute
+    registerQuestionrRoute,
+    findallQuestionRoute,
   ]);
 
   const port = 8000;
