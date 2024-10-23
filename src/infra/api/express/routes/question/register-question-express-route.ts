@@ -16,7 +16,7 @@ export class RegisterQuestionRoute implements Route {
 
   public static create(registerQustionService: RegisterQuestionUsecase){
     return new RegisterQuestionRoute(
-      '/question-register/:Question_Id_User_Internal',
+      '/question-register',
       HttpMethod.POST,
       registerQustionService
     );
