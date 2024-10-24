@@ -27,3 +27,7 @@ em comparação com bancos NOSQL, como MONGODB, que são ótimos para dados não
 o MYSQL suporta consultas SQL complexas, como joins, subconsultas e agregações, o que facilita a criação de relatórios e a execução de consultas mais avançadas. o PRISMA simplifica essas operações complexas em código e ainda fornece segurança tipada ao interagir com o banco de dados, tornando o processo de consulta mais seguro e fácil.
 
 o PRISMA permite também integração com diferentes ambientes, como MYSQL para produção e SQLITE para desenvolvimento/testes, sem complicações. além disso, ele é projetado para funcionar perfeitamente com TYPESCRIPT, gerando tipos automáticos para o banco de dados e garantindo segurança ao interagir com ele. comparando com SEQUELIZE, que tem uma API mais complexa e menos amigável para TYPESCRIPT, o PRISMA é mais eficiente. O TYPEORM também oferece suporte ao TYPESCRIPT, mas o sistema de migrações do PRISMA é mais fácil de lidar em grandes aplicações.
+
+MER
+
+![image](https://github.com/user-attachments/assets/5d5e2598-4ec9-4f56-8f9d-95a384498180)
