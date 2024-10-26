@@ -17,6 +17,8 @@ import { RegisterQuestionUsecase } from "./usecases/question/register-question-u
 import { RegisterQuestionRoute } from "./infra/api/express/routes/question/register-question-express-route";
 import { FindAllQuestionUsecase } from "./usecases/question/find-all-question-usecase";
 import { FindAllQuestionRoute } from "./infra/api/express/routes/question/find-all-question-express-route";
+import { ResetPasswordUsecase } from "./usecases/auth/reset-password-usecase";
+import { ResetPasswordRoute } from "./infra/api/express/routes/login/reset-password-express-route";
 
 
 function main() {
@@ -35,8 +37,10 @@ function main() {
   const bRepository = LoginUserRepositoryPrisma.create(prisma); /////////////
 
   const loginUserUsecase = LoginUserUsecase.create(bRepository);
+  const resetPasswordUsecase = ResetPasswordUsecase.create(bRepository);
 
   const loginUserRoute = LoginUserRoute.create(loginUserUsecase);
+  const resetPasswordRoute = ResetPasswordRoute.create(resetPasswordUsecase);
 
   const cRepository = QuestionRepositoryPrisma.create(prisma); /////////////
 
@@ -52,6 +56,7 @@ function main() {
     findByIdUserRoute, 
     deleteUserRoute, 
     loginUserRoute, 
+    resetPasswordRoute,
     registerQuestionrRoute,
     findallQuestionRoute,
   ]);
