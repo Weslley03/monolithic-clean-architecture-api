@@ -82,4 +82,17 @@ export class UserRepositoryPrisma implements UserGateway {
       throw new Error('user not found');
     };
   };
+
+  public async updatePassword(user: User): Promise<void> {
+    const data: Partial<UserProps> = {};
+    
+    const passwordhashed  = await this.hashPassword(user.User_Password);
+
+    data.User_Password = passwordhashed;
+
+    await this.prismaClient.user.update({
+      where: { User_Id: user.User_Id },
+      data,
+    })
+  };
 };
