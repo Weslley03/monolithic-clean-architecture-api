@@ -20,7 +20,7 @@ export class LoginUserRoute  implements Route {
   public static create(loginUserService: LoginUserUsecase) {
     return new LoginUserRoute(
       '/auth-login',
-      HttpMethod.GET,
+      HttpMethod.POST,
       loginUserService
     );
   };
