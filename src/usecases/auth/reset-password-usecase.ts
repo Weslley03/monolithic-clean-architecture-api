@@ -31,6 +31,12 @@ export class ResetPasswordUsecase implements Usecase<ResetPassowordInputDto, Res
       const output = this.presentOutput(userToken);
       return output;
     }catch(err){
+      if(err instanceof Error) {
+        console.error(err)
+        if(err.message = 'user not found'){
+          throw new Error('user not found');
+        };
+      }
       console.error(err)
       throw new Error('an unknown error occurred');
     }; 
