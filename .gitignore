@@ -4,3 +4,4 @@ dist
 
 nort
 src/uploads/userdefault.png
+db/dev.db
