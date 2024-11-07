@@ -16,7 +16,7 @@ export class ResetPasswordRoute  implements Route {
   public static create(resetPasswordService: ResetPasswordUsecase) {
     return new ResetPasswordRoute(
       '/reset-password',
-      HttpMethod.GET,
+      HttpMethod.POST,
       resetPasswordService
     );
   };
